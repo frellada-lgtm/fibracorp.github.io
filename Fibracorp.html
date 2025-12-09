@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fibracorp - Soluciones Tecnológicas Innovadoras</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #0056b3;
+            --secondary: #ff6b00;
+            --dark: #1a2b47;
+            --light: #f8f9fa;
+            --gray: #6c757d;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            color: #333;
+            line-height: 1.6;
+            background-color: #ffffff;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        .section-padding {
+            padding: 80px 0;
+        }
+        
+        header {
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--dark);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo span {
+            color: var(--primary);
+        }
+        
+        .logo i {
+            margin-right: 10px;
+            color: var(--primary);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 25px;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+        
+        nav ul li a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--primary);
+            transition: width 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: var(--primary);
+        }
+        
+        nav ul li a:hover:after {
+            width: 100%;
+        }
+        
+        .mobile-menu {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--dark);
+        }
+        
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--dark) 100%);
+            color: white;
+            padding: 180px 0 100px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffffff" fill-opacity="0.1" d="M0,96L48,112C96,128,192,160,288,186.7C384,213,480,235,576,213.3C672,192,768,128,864,128C960,128,1056,192,1152,192C1248,192,1344,128,1392,96L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        
+        .hero p {
+            font-size: 20px;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--secondary);
+            color: white;
+            padding: 14px 32px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        .btn:hover {
+            background-color: #e55a00;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid white;
+            margin-left: 15px;
+        }
+        
+        .btn-outline:hover {
+            background-color: white;
+            color: var(--primary);
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-title h2 {
+            font-size: 36px;
+            color: var(--dark);
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title h2:after {
+            content: '';
+            position: absolute;
+            width: 70px;
+            height: 3px;
+            background: var(--primary);
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .section-title p {
+            color: var(--gray);
+            max-width: 700px;
+            margin: 20px auto 0;
+            font-size: 18px;
+        }
+        
+        .services {
+            background-color: var(--light);
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .service-card {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 40px 30px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border-top: 4px solid var(--primary);
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .service-icon {
+            font-size: 50px;
+            color: var(--primary);
+            margin-bottom: 20px;
+            background: rgba(0, 86, 179, 0.1);
+            width: 100px;
+            height: 100px;
+            line-height: 100px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+        
+        .service-card h3 {
+            margin-bottom: 15px;
+            color: var(--dark);
+            font-size: 22px;
+        }
+        
+        .service-card p {
+            color: var(--gray);
+        }
+        
+        .about {
+            background-color: #fff;
+        }
+        
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+        
+        .about-text h3 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+        
+        .about-text p {
+            margin-bottom: 20px;
+            color: var(--gray);
+        }
+        
+        .about-features {
+            margin: 30px 0;
+        }
+        
+        .feature-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .feature-item i {
+            color: var(--primary);
+            margin-right: 10px;
+            font-size: 18px;
+        }
+        
+        .about-image {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        
+        .about-image:before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--primary), transparent);
+            opacity: 0.1;
+            z-index: 1;
+        }
+        
+        .regulations {
+            background-color: var(--light);
+        }
+        
+        .regulations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+        }
+        
+        .regulation-card {
+            background: white;
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .regulation-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .regulation-card h3 {
+            color: var(--dark);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            font-size: 18px;
+        }
+        
+        .regulation-card h3 i {
+            margin-right: 10px;
+            color: var(--primary);
+            font-size: 20px;
+        }
+        
+        .regulation-card p {
+            color: var(--gray);
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+        
+        .regulation-links {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .regulation-link {
+            display: inline-flex;
+            align-items: center;
+            padding: 8px 15px;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 14px;
+            transition: background 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .regulation-link i {
+            margin-right: 5px;
+        }
+        
+        .regulation-link:hover {
+            background: #004494;
+        }
+        
+        .regulation-link.outline {
+            background: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+        }
+        
+        .regulation-link.outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .contact {
+            background-color: #fff;
+        }
+        
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+        }
+        
+        .contact-info h3 {
+            margin-bottom: 20px;
+            color: var(--dark);
+            font-size: 24px;
+        }
+        
+        .contact-info p {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            color: var(--gray);
+        }
+        
+        .contact-info i {
+            margin-right: 10px;
+            color: var(--primary);
+            width: 20px;
+        }
+        
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 12px 15px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border 0.3s;
+        }
+        
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            border-color: var(--primary);
+            outline: none;
+        }
+        
+        .contact-form textarea {
+            height: 150px;
+            resize: vertical;
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 70px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-column h3 {
+            margin-bottom: 20px;
+            font-size: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h3:after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 2px;
+            background: var(--secondary);
+            bottom: 0;
+            left: 0;
+        }
+        
+        .footer-column p {
+            color: #bdc3c7;
+            margin-bottom: 20px;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-column ul li a {
+            color: #bdc3c7;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-column ul li a:hover {
+            color: var(--secondary);
+        }
+        
+        .social-links {
+            display: flex;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            margin-right: 10px;
+            transition: all 0.3s;
+            color: white;
+            text-decoration: none;
+        }
+        
+        .social-links a:hover {
+            background: var(--secondary);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #34495e;
+            color: #bdc3c7;
+            font-size: 14px;
+        }
+        
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 40px;
+            }
+            
+            .about-content,
+            .contact-container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .about-image {
+                order: -1;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin-top: 20px;
+                flex-direction: column;
+                display: none;
+            }
+            
+            nav ul.active {
+                display: flex;
+            }
+            
+            nav ul li {
+                margin: 10px 0;
+            }
+            
+            .mobile-menu {
+                display: block;
+                position: absolute;
+                top: 20px;
+                right: 20px;
+            }
+            
+            .hero {
+                padding: 150px 0 80px;
+            }
+            
+            .hero h1 {
+                font-size: 32px;
+            }
+            
+            .hero p {
+                font-size: 18px;
+            }
+            
+            .btn-container {
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .btn-outline {
+                margin-left: 0;
+            }
+            
+            .section-padding {
+                padding: 60px 0;
+            }
+            
+            .regulations-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .regulation-links {
+                flex-direction: column;
+            }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.8s ease forwards;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+            <a href="#" class="logo"><i class="fas fa-network-wired"></i>Fibra<span>corp</span>.com</a>
+            <div class="mobile-menu">☰</div>
+            <nav>
+                <ul>
+                    <li><a href="#inicio">Inicio</a></li>
+                    <li><a href="#servicios">Servicios</a></li>
+                    <li><a href="#nosotros">Nosotros</a></li>
+                    <li><a href="#normas">Normas y Regulaciones</a></li>
+                    <li><a href="#contacto">Contacto</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero" id="inicio">
+        <div class="container">
+            <div class="hero-content fade-in">
+                <h1>Soluciones Tecnológicas Innovadoras</h1>
+                <p>En Fibracorp nos especializamos en ofrecer soluciones tecnológicas de vanguardia que impulsan el crecimiento y la transformación digital de tu empresa.</p>
+                <div class="btn-container">
+                    <a href="#contacto" class="btn">Contáctanos</a>
+                    <a href="#servicios" class="btn btn-outline">Nuestros Servicios</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="services section-padding" id="servicios">
+        <div class="container">
+            <div class="section-title">
+                <h2>Nuestros Servicios</h2>
+                <p>Ofrecemos una amplia gama de servicios diseñados para satisfacer las necesidades tecnológicas de tu empresa</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card fade-in">
+                    <div class="service-icon">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <h3>Desarrollo de Software</h3>
+                    <p>Creación de aplicaciones personalizadas que se adaptan a tus procesos empresariales específicos.</p>
+                </div>
+                <div class="service-card fade-in">
+                    <div class="service-icon">
+                        <i class="fas fa-cloud"></i>
+                    </div>
+                    <h3>Soluciones en la Nube</h3>
+                    <p>Implementación y migración de infraestructuras cloud para optimizar tus operaciones.</p>
+                </div>
+                <div class="service-card fade-in">
+                    <div class="service-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Ciberseguridad</h3>
+                    <p>Protección integral de tus datos y sistemas contra amenazas digitales.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="about section-padding" id="nosotros">
+        <div class="container">
+            <div class="section-title">
+                <h2>Sobre Nosotros</h2>
+                <p>Conoce más sobre nuestra empresa y nuestra misión</p>
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Más de 10 años de experiencia</h3>
+                    <p>Fibracorp fue fundada en 2013 con la visión de transformar la manera en que las empresas utilizan la tecnología. Desde entonces, hemos ayudado a cientos de organizaciones a alcanzar sus objetivos mediante soluciones innovadoras.</p>
+                    <p>Nuestro equipo está compuesto por profesionales altamente capacitados y apasionados por la tecnología, comprometidos con ofrecer resultados excepcionales.</p>
+                    
+                    <div class="about-features">
+                        <div class="feature-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Equipo especializado en diferentes tecnologías</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Metodologías ágiles de desarrollo</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Soporte técnico 24/7</span>
+                        </div>
+                    </div>
+                    
+                    <a href="#contacto" class="btn">Conoce más</a>
+                </div>
+                <div class="about-image">
+                    <div style="width:100%; height:400px; background:linear-gradient(45deg, var(--primary), var(--dark)); display:flex; align-items:center; justify-content:center; color:white; font-size:24px;">
+                        <i class="fas fa-users" style="font-size: 80px; margin-bottom: 20px;"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="regulations section-padding" id="normas">
+        <div class="container">
+            <div class="section-title">
+                <h2>Normas y Regulaciones</h2>
+                <p>Documentación oficial y normativa aplicable a nuestros servicios</p>
+            </div>
+            
+            <div class="regulations-grid">
+                <!-- Documento 1 -->
+                <div class="regulation-card fade-in">
+                    <h3><i class="fas fa-file-contract"></i> Ley Orgánica de las Personas Adultas Mayores</h3>
+                    <p>Marco legal para la protección y derechos de las personas adultas mayores.</p>
+                    <div class="regulation-links">
+                        <a href="https://utaedu-my.sharepoint.com/:b:/g/personal/la_villacis_uta_edu_ec/IQANyoUWeJZFSYU5SUEnQM7JAVW2Lj40ffrij3CPTGRG5zI?e=y9v1GT" 
+                           class="regulation-link" 
+                           target="_blank">
+                           <i class="fas fa-eye"></i> Ver PDF
+                        </a>
+                        <a href="https://utaedu-my.sharepoint.com/:b:/g/personal/la_villacis_uta_edu_ec/IQANyoUWeJZFSYU5SUEnQM7JAVW2Lj40ffrij3CPTGRG5zI?download=1" 
+                           class="regulation-link outline" 
+                           download="Ley_Organica_Adultos_Mayores.pdf">
+                           <i class="fas fa-download"></i> Descargar
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Documento 2 -->
+                <div class="regulation-card fade-in">
+                    <h3><i class="fas fa-file-alt"></i> Reforma al Reglamento General</h3>
+                    <p>Actualizaciones y modificaciones al reglamento general de la empresa.</p>
+                    <div class="regulation-links">
+                        <a href="https://utaedu-my.sharepoint.com/:b:/g/personal/la_villacis_uta_edu_ec/IQCJg5a5lSzbRbrxYSU2osTSAUty3E-wsmQ5mLw0oiqz11I?e=tlmnve" 
+                           class="regulation-link" 
+                           target="_blank">
+                           <i class="fas fa-eye"></i> Ver PDF
+                        </a>
+                        <a href="https://utaedu-my.sharepoint.com/:b:/g/personal/la_villacis_uta_edu_ec/IQCJg5a5lSzbRbrxYSU2osTSAUty3E-wsmQ5mLw0oiqz11I?download=1" 
+                           class="regulation-link outline" 
+                           download="Reforma_Reglamento_General.pdf">
+                           <i class="fas fa-download"></i> Descargar
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Documento 3 -->
+                <div class="regulation-card fade-in">
+                    <h3><i class="fas fa-balance-scale"></i> Reglamento General Ley Orgánica de las Personas Adultas Mayores</h3>
+                    <p>Reglamento específico para la aplicación de la ley de adultos mayores.</p>
+                    <div class="regulation-links">
+                        <a href="https://utaedu-my.sharepoint.com/:b:/g/personal/la_villacis_uta_edu_ec/IQBnFXqhxdbWRbflXHbmD6CMAS2oR1GBGVCkBn9YotQrcCk?e=31ldFj" 
+                           class="regulation-link" 
+                           target="_blank">
+                           <i class="fas fa-eye"></i> Ver PDF
+                        </a>
+                        <a href="https://utaedu-my.sharepoint.com/:b:/g/personal/la_villacis_uta_edu_ec/IQBnFXqhxdbWRbflXHbmD6CMAS2oR1GBGVCkBn9YotQrcCk?download=1" 
+                           class="regulation-link outline" 
+                           download="Reglamento_General_Adultos_Mayores.pdf">
+                           <i class="fas fa-download"></i> Descargar
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Documento 4 -->
+                <div class="regulation-card fade-in">
+                    <h3><i class="fas fa-gavel"></i> Resolución ARCOTEL</h3>
+                    <p>Resoluciones emitidas por la Agencia de Regulación y Control de las Telecomunicaciones.</p>
+                    <div class="regulation-links">
+                        <a href="https://utaedu-my.sharepoint.com/:b:/g/personal/la_villacis_uta_edu_ec/IQD08Hs6jAWPQaYod0QEp0-lAVP_ECCPJZLN8-IawCiEHgE?e=WjVwfL" 
+                           class="regulation-link" 
+                           target="_blank">
+                           <i class="fas fa-eye"></i> Ver PDF
+                        </a>
+                        <a href="https://utaedu-my.sharepoint.com/:b:/g/personal/la_villacis_uta_edu_ec/IQD08Hs6jAWPQaYod0QEp0-lAVP_ECCPJZLN8-IawCiEHgE?download=1" 
+                           class="regulation-link outline" 
+                           download="Resolucion_ARCOTEL.pdf">
+                           <i class="fas fa-download"></i> Descargar
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact section-padding" id="contacto">
+        <div class="container">
+            <div class="section-title">
+                <h2>Contáctanos</h2>
+                <p>Estamos listos para ayudarte a llevar tu empresa al siguiente nivel</p>
+            </div>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h3>Información de contacto</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> <strong>Dirección:</strong> Bernardo Darquea y Pedro Fermin Cevallos</p>
+                    <p><i class="fas fa-phone"></i> <strong>Teléfono:</strong> 0992670214</p>
+                    <p><i class="fas fa-envelope"></i> <strong>Email:</strong> quero.internet.al@gmail.com</p>
+                    <p><i class="fas fa-clock"></i> <strong>Horario:</strong> Lunes a Viernes: 9:00 - 18:00</p>
+                    
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <form id="contactForm">
+                        <input type="text" placeholder="Nombre completo" required>
+                        <input type="email" placeholder="Correo electrónico" required>
+                        <input type="text" placeholder="Asunto">
+                        <textarea placeholder="Mensaje" required></textarea>
+                        <button type="submit" class="btn">Enviar mensaje</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Fibracorp</h3>
+                    <p>Soluciones tecnológicas innovadoras para impulsar tu negocio hacia el futuro.</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Bernardo Darquea y Pedro Fermin Cevallos</p>
+                    <p><i class="fas fa-phone"></i> 0992670214</p>
+                    <p><i class="fas fa-envelope"></i> quero.internet.al@gmail.com</p>
+                    
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Enlaces rápidos</h3>
+                    <ul>
+                        <li><a href="#inicio">Inicio</a></li>
+                        <li><a href="#servicios">Servicios</a></li>
+                        <li><a href="#nosotros">Nosotros</a></li>
+                        <li><a href="#normas">Normas y Regulaciones</a></li>
+                        <li><a href="#contacto">Contacto</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Servicios</h3>
+                    <ul>
+                        <li><a href="#">Desarrollo de Software</a></li>
+                        <li><a href="#">Soluciones en la Nube</a></li>
+                        <li><a href="#">Ciberseguridad</a></li>
+                        <li><a href="#">Consultoría IT</a></li>
+                        <li><a href="#">Inteligencia Artificial</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Suscríbete</h3>
+                    <p>Recibe las últimas noticias y actualizaciones de Fibracorp.</p>
+                    <form>
+                        <input type="email" placeholder="Tu correo electrónico" style="width: 100%; margin-bottom: 10px;">
+                        <button type="submit" class="btn" style="width: 100%;">Suscribirse</button>
+                    </form>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Fibracorp.com. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Menú móvil
+        document.querySelector('.mobile-menu').addEventListener('click', function() {
+            document.querySelector('nav ul').classList.toggle('active');
+        });
+        
+        // Smooth scroll para enlaces de navegación
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    document.querySelector('nav ul').classList.remove('active');
+                }
+            });
+        });
+        
+        // Efecto de header al hacer scroll
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(255, 255, 255, 0.98)';
+                header.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.1)';
+            } else {
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+                header.style.boxShadow = '0 2px 15px rgba(0, 0, 0, 0.1)';
+            }
+        });
+        
+        // Animación de elementos al hacer scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, observerOptions);
+        
+        document.querySelectorAll('.service-card, .regulation-card').forEach(el => {
+            observer.observe(el);
+        });
+        
+        // Manejo del formulario de contacto
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('¡Gracias por tu mensaje! Nos pondremos en contacto contigo pronto.');
+            this.reset();
+        });
+    </script>
+</body>
+</html>
